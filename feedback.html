@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Loop | Feedback</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: #f9f9f9;
+      color: #222;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: #ffffff;
+      border-bottom: 2px solid #5de116;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #5de116;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1a1acd;
+      border: 1px solid #1a1acd;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background: #f01111;
+      color: #fff;
+      border-color: #f01111;
+    }
+
+    /* Feedback Section */
+    .feedback-container {
+      max-width: 1000px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      overflow: hidden;
+    }
+
+    .contact-info {
+      background: #f3f3f3;
+      padding: 30px;
+      width: 35%;
+      border-right: 2px solid #ddd;
+    }
+
+    .contact-info h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .contact-info p {
+      margin: 10px 0;
+      font-size: 15px;
+    }
+
+    .contact-info a {
+      color: #1a1acd;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .feedback-form {
+      padding: 30px;
+      width: 65%;
+    }
+
+    .feedback-form h2 {
+      margin-bottom: 10px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .feedback-form p {
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .feedback-form button {
+      padding: 12px 25px;
+      background: #1a1acd;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .feedback-form button:hover {
+      background: #f01111;
+    }
+
+    /* Experience Rating */
+    .rating {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .rating span {
+      font-size: 28px;
+      color: #bbb;
+      transition: color 0.3s;
+    }
+
+    .rating span.active {
+      color: #1a1acd;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #f3f3f3;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .feedback-container {
+        flex-direction: column;
+      }
+      .contact-info, .feedback-form {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  </style>
+  <script>
+    // Rating system
+    function setRating(index) {
+      let stars = document.querySelectorAll(".rating span");
+      stars.forEach((star, i) => {
+        star.classList.toggle("active", i <= index);
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo-section">
+      <div class="logo">L</div>
+      <span>The Loop</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="feedback.html">Feedback</a>
+    </div>
+  </div>
+
+  <!-- Feedback Section -->
+  <div class="feedback-container">
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <p><strong>Phone:</strong> <a href="tel:+911234567891">+91 1234567891</a></p>
+      <p><strong>Email:</strong> <a href="mailto:TheGlassLoop@gmail.com">TheGlassLoop@gmail.com</a></p>
+    </div>
+
+    <!-- Form -->
+    <div class="feedback-form">
+      <h2>Feedback Form</h2>
+      <p>We value your thoughts! Help us improve.</p>
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+
+        <label>Experience:</label>
+        <div class="rating">
+          <span onclick="setRating(0)">&#10084;</span>
+          <span onclick="setRating(1)">&#10084;</span>
+          <span onclick="setRating(2)">&#10084;</span>
+          <span onclick="setRating(3)">&#10084;</span>
+          <span onclick="setRating(4)">&#10084;</span>
+        </div>
+
+        <input type="text" placeholder="Subject" required>
+        <textarea placeholder="Your Feedback" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 The Loop | All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
+<!DOCTYPE html>
