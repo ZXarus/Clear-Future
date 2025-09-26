@@ -1,222 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Loop | Services</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Loop | Services</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI", Arial, sans-serif; }
+body { background:#f9f9f9; color:#222; }
 
-    body {
-      background: #f9f9f9;
-      color: #222;
-    }
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px; /* reduced padding */
+  background: #fff;
+  border-bottom: 2px solid #5de116;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      background: #ffffff;
-      border-bottom: 2px solid #5de116;
-    }
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 18px;
+}
 
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: bold;
-      font-size: 18px;
-    }
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-image: url("https://png.pngtree.com/png-clipart/20240306/original/pngtree-infinity-symbol-black-png-png-image_14520365.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-    .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #5de116;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-image: url("https://png.pngtree.com/png-clipart/20240306/original/pngtree-infinity-symbol-black-png-png-image_14520365.png");
-      background-size: cover;   /* make sure image fits nicely */
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+.nav-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap; /* prevents wrapping */
+}
 
-    .nav-links {
-      display: flex;
-      gap: 18px;
-    }
+.nav-links a {
+  text-decoration: none;
+  color: #1a1acd;
+  border: 1px solid #1a1acd;
+  padding: 5px 10px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
 
-    .nav-links a {
-      text-decoration: none;
-      color: #1a1acd;
-      border: 1px solid #1a1acd;
-      padding: 8px 18px;
-      border-radius: 25px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: 0.3s ease;
-    }
+.nav-links a:hover {
+  background: #f01111;
+  color: #fff;
+  border-color: #f01111;
+  transform: translateY(-2px);
+}
 
-    .nav-links a:hover {
-      background: #f01111;
-      color: #fff;
-      border-color: #f01111;
-    }
+/* Mobile */
+@media(max-width: 600px){
+  .navbar { flex-direction: column; align-items: flex-start; padding: 8px; }
+  .nav-links { width: 100%; justify-content: space-around; flex-wrap: wrap; margin-top: 4px; }
+  .nav-links a { padding: 6px; flex: 1 1 auto; text-align: center; }
+}
 
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(to right, #5de116, #1a1acd);
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
-    }
 
-    .hero h1 {
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
+/* Hero */
+.hero { background: linear-gradient(to right, #5de116, #1a1acd); color:white; text-align:center; padding:80px 20px; }
+.hero h1{font-size:36px; margin-bottom:15px;} .hero p{font-size:18px; max-width:700px; margin:auto;}
+@media(max-width:768px){ .hero h1{font-size:28px;} .hero p{font-size:16px;} }
+@media(max-width:480px){ .hero h1{font-size:24px;} .hero p{font-size:14px;} }
 
-    .hero p {
-      font-size: 18px;
-      max-width: 700px;
-      margin: auto;
-    }
+/* Services */
+.services { max-width:1100px; margin:50px auto; padding:20px; text-align:center; }
+.services h2 { font-size:28px; margin-bottom:30px; color:#1a1acd; }
+.service-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:25px; }
+.service-card { background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); transition:0.3s ease; }
+.service-card:hover { transform: translateY(-5px); box-shadow:0 6px 15px rgba(0,0,0,0.15); }
+.service-icon { font-size:40px; margin-bottom:15px; color:#5de116; }
+.service-card h3 { font-size:20px; margin-bottom:10px; color:#1a1acd; }
+.service-card p { font-size:15px; color:#555; line-height:1.6; }
 
-    /* Services Section */
-    .services {
-      max-width: 1100px;
-      margin: 50px auto;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .services h2 {
-      font-size: 28px;
-      margin-bottom: 30px;
-      color: #1a1acd;
-    }
-
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .service-card {
-      background: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
-      transition: 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
-    }
-
-    .service-icon {
-      font-size: 40px;
-      margin-bottom: 15px;
-      color: #5de116;
-    }
-
-    .service-card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #1a1acd;
-    }
-
-    .service-card p {
-      font-size: 15px;
-      color: #555;
-      line-height: 1.6;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #f3f3f3;
-      margin-top: 40px;
-      font-size: 14px;
-      color: #555;
-    }
-
-    @media (max-width: 900px) {
-      .service-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .service-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+@media(max-width:900px){ .service-grid{grid-template-columns:1fr 1fr;} }
+@media(max-width:600px){ .service-grid{grid-template-columns:1fr;} }
+</style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="logo-section">
-      <div class="logo"></div>
-      <span>The Loop</span>
-    </div>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="glasssub.html">Glass Submission</a>
-      <a href="feedback.html">Feedback</a>
-    </div>
+<div class="navbar">
+  <div class="logo-section"><div class="logo"></div> <span>The Loop</span></div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="glasssub.html">Glass Submission</a>
+    <a href="feedback.html">Feedback</a>
   </div>
+</div>
 
-  <!-- Hero -->
-  <div class="hero">
-    <h1>Our Services</h1>
-    <p>At The Loop, we are redefining the journey of every bottle through sustainable practices and eco-friendly innovation.</p>
+<div class="hero">
+  <h1>Our Services</h1>
+  <p>At The Loop, we are redefining the journey of every bottle through sustainable practices and eco-friendly innovation.</p>
+</div>
+
+<section class="services">
+  <h2>What We Do</h2>
+  <div class="service-grid">
+    <div class="service-card"><div class="service-icon">♻</div><h3>Bottle Recycling Programs</h3><p>We collect and recycle bottles to give them a second life, reducing waste and protecting the environment.</p></div>
+    <div class="service-card"><div class="service-icon">🚚</div><h3>Eco-friendly Transport</h3><p>Our logistics are powered by sustainable transportation methods, ensuring a smaller carbon footprint.</p></div>
+    <div class="service-card"><div class="service-icon">🌍</div><h3>Awareness Campaigns</h3><p>We organize events and campaigns to educate communities about recycling and sustainable living.</p></div>
+    <div class="service-card"><div class="service-icon">🥛 ♻</div><h3>Broken Glass Recycle</h3><p>We collect and recycle broken glass to give them a second life, reducing waste and protecting the environment.</p></div>
   </div>
+</section>
 
-  <!-- Services Section -->
-  <section class="services">
-    <h2>What We Do</h2>
-    <div class="service-grid">
-      <div class="service-card">
-        <div class="service-icon">♻</div>
-        <h3>Bottle Recycling Programs</h3>
-        <p>We collect and recycle bottles to give them a second life, reducing waste and protecting the environment.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🚚</div>
-        <h3>Eco-friendly Transport</h3>
-        <p>Our logistics are powered by sustainable transportation methods, ensuring a smaller carbon footprint.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌍</div>
-        <h3>Awareness Campaigns</h3>
-        <p>We organize events and campaigns to educate communities about recycling and sustainable living.</p>
-      </div>
-      <div class="service-card">
-      <div class="service-icon">🥛 ♻</div>
-        <h3>Broken Glass Recycle</h3>
-        <p>We collect and recycle broken glass to give them a second life, reducing waste and protecting the environment, by giving them the second choice they deserve.</p>
-      </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 The Loop | All Rights Reserved</p>
-  </footer>
-
+<footer>&copy; 2025 The Loop | All Rights Reserved</footer>
 </body>
 </html>
