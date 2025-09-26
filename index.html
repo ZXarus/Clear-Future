@@ -41,16 +41,19 @@
 
     .logo {
       width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #5de116;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+        height: 48px;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-image: url("https://png.pngtree.com/png-clipart/20240306/original/pngtree-infinity-symbol-black-png-png-image_14520365.png");
+        background-size: cover;   /* make sure image fits nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
     }
 
     .nav-links {
@@ -79,10 +82,16 @@
 
     /* Hero Section */
     .hero {
-      background: linear-gradient(135deg, #e0e0e0, #cfcfcf);
-      text-align: center;
-      padding: 100px 20px;
-      border-bottom: 2px solid #5de116;
+        position: relative;
+        background: 
+            linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), /* white transparent layer */
+            url("https://www.ambyrne.com/wp-content/uploads/2017/12/Broken-glass.jpg");
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        padding: 100px 20px;
+        border-bottom: 2px solid #5de116;
+        color: #000; /* black text now more readable */
     }
 
     .hero h1 {
@@ -138,7 +147,7 @@
   <!-- Navbar -->
   <div class="navbar">
     <div class="logo-section">
-      <div class="logo">L</div>
+      <div class="logo"></div>
       <span>The Loop</span>
     </div>
     <div class="nav-links">
@@ -151,7 +160,7 @@
 
   <!-- Hero Section -->
   <div class="hero">
-    <h1>The journey of a bottle <br> redefined</h1>
+    <h1>The journey of a bottle <br> <b>Redefined</b></h1>
     <p>We turn waste into opportunity and bottles into change.</p>
     <a href="/services.html" class="btn">Explore Services</a>
   </div>
@@ -159,3 +168,4 @@
 </body>
 </html>
 <!DOCTYPE html>
+
