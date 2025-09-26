@@ -7,45 +7,34 @@
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI", Arial, sans-serif; }
     body { background:#f9f9f9; color:#222; }
-
-    /* Navbar */
     .navbar { display:flex; justify-content:space-between; align-items:center; padding:15px 40px; background:#fff; border-bottom:2px solid #5de116; position:sticky; top:0; z-index:1000; }
     .logo-section { display:flex; align-items:center; gap:12px; font-weight:bold; font-size:18px; color:#333; }
     .logo { width:48px; height:48px; border-radius:50%; background:#5de116; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; font-weight:bold; box-shadow:0px 3px 6px rgba(0,0,0,0.15); }
     .nav-links { display:flex; gap:18px; }
     .nav-links a { text-decoration:none; color:#1a1acd; border:1px solid #1a1acd; padding:8px 18px; border-radius:25px; font-size:14px; font-weight:500; transition:all 0.3s ease; box-shadow:0px 2px 5px rgba(0,0,0,0.1); }
     .nav-links a:hover { background:#f01111; color:#fff; border-color:#f01111; transform:translateY(-2px); }
-
-    /* Hero */
     .hero { background:linear-gradient(to right, #5de116, #1a1acd); color:white; text-align:center; padding:80px 20px; border-radius:6px; margin:18px 0; border-bottom:2px solid #5de116; }
     .hero h1 { font-size:36px; margin-bottom:15px; }
     .hero p { font-size:18px; max-width:700px; margin:auto; }
     .info { padding:10px; border-radius:8px; background:#f3f3f3; color:#444; margin-top:12px }
-
-    /* Card & Steps */
     .card { max-width:700px; background:#fff; padding:25px; border-radius:12px; box-shadow:0px 6px 18px rgba(0,0,0,0.08); margin:30px auto; }
     .step { display:flex; align-items:center; gap:10px; margin-bottom:15px; font-size:14px; }
     .step span { width:24px; height:24px; border-radius:50%; background:#ccc; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:bold; }
     .step.active span { background:#1a1acd; }
     .step.active + .step { color:#1a1acd; }
-
     h2, h3 { color:#1a1acd; margin-bottom:12px; }
-
     form { display:flex; flex-direction:column; gap:12px; }
     label { font-size:13px; color:#555; }
     input[type="text"], input[type="email"], input[type="number"], select, textarea, input[type="date"] { width:100%; padding:12px; border-radius:8px; border:1px solid #ccc; font-size:15px; color:#222; }
     textarea { min-height:90px; resize:vertical }
     .row { display:flex; gap:10px }
     .row .col{ flex:1 }
-
     .btn{ padding:10px 16px; border-radius:8px; font-weight:700; cursor:pointer; border:none }
     .btn-primary{ background:#1a1acd; color:#fff }
     .btn-primary:hover{ background:#f01111 }
     .btn-ghost{ background:transparent; border:1px solid #1a1acd; color:#1a1acd }
-
     .cash { color:#5de116; font-weight:800 }
     footer{ margin-top:26px; text-align:center; color:#555; padding:12px 0; }
-
     @media (max-width:860px){ .row{ flex-direction:column } .hero{ text-align:center } }
   </style>
 </head>
@@ -136,6 +125,7 @@
 
   <footer>© <strong>The Loop</strong> — Glass Pickup & Recycling</footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
     const glassForm = document.getElementById('glassForm');
     const cashMessage = document.getElementById('cashMessage');
@@ -145,19 +135,23 @@
     const cancelDetailsBtn = document.getElementById('cancelDetails');
     const ratePerKg = 10;
     const maxWeight = 50;
-
     const stepElems = document.querySelectorAll('.step');
 
     function showCashMessage(html){
       cashMessage.innerHTML = html;
       cashMessage.style.display = 'block';
     }
-
     function updateStep(step){
-      stepElems.forEach((el,i)=>{ 
-        el.classList.toggle('active', i<step);
-      });
+      stepElems.forEach((el,i)=>{ el.classList.toggle('active', i<step); });
     }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    // Supabase client
+    const SUPABASE_URL = "https://hkbhnfdrodigtzzggqkl.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrYmhuZmRyb2RpZ3R6emdncWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4OTk2NjEsImV4cCI6MjA3NDQ3NTY2MX0.ezDdOtFLWJCOaif7cjWselohZj1KbxzxvZnbegjmlTM";
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // Quick Submission
     glassForm.addEventListener('submit', (e)=>{
@@ -171,7 +165,6 @@
         openDetailedFormBtn.style.display='none';
         return;
       }
-
       const cashEarned = (weight*ratePerKg).toFixed(2);
       showCashMessage(`Hi <strong>${escapeHtml(name)}</strong>, you will earn <span class="cash">₹${cashEarned}</span> for <strong>${weight} kg</strong>.`);
       openDetailedFormBtn.style.display='inline-block';
@@ -183,15 +176,11 @@
       detailedForm.style.display='block';
       detailedForm.setAttribute('aria-hidden','false');
       openDetailedFormBtn.style.display='none';
-
-      // Set pickup date constraints
       const dateInput = document.getElementById('pickupDate');
       const today = new Date();
-      const maxDate = new Date();
-      maxDate.setDate(today.getDate()+30);
+      const maxDate = new Date(); maxDate.setDate(today.getDate()+30);
       dateInput.min = today.toISOString().split('T')[0];
       dateInput.max = maxDate.toISOString().split('T')[0];
-
       updateStep(2);
     });
 
@@ -202,43 +191,35 @@
       updateStep(1);
     });
 
-    submitDetailsBtn.addEventListener('click', ()=>{
+    // Submit details to Supabase
+    submitDetailsBtn.addEventListener('click', async ()=>{
       const selectedItems = Array.from(document.querySelectorAll('.glassItem:checked')).map(i=>i.value);
-      if(selectedItems.length===0){
-        alert('Please select at least one glass item.');
-        return;
-      }
-      // prevent wrong items (mock)
-      const invalidItems = selectedItems.filter(i=>['ceramics','plastic'].includes(i));
-      if(invalidItems.length>0){
-        alert('Invalid items selected: ceramics or plastics not allowed.');
-        return;
-      }
+      if(selectedItems.length===0){ alert('Please select at least one glass item.'); return; }
 
       const data = {
         name: document.getElementById('name').value.trim(),
         email: document.getElementById('email').value.trim(),
         weight: parseFloat(document.getElementById('weight').value),
-        pickupDate: document.getElementById('pickupDate').value,
+        pickup_date: document.getElementById('pickupDate').value,
         phone: document.getElementById('phone').value.trim(),
         address: document.getElementById('address').value.trim(),
-        glassType: selectedItems,
+        glass_type: selectedItems,
         notes: document.getElementById('notes').value.trim()
       };
 
-      console.log('Submitting pickup details', data);
-      showCashMessage('Thank you! Your details have been submitted. We will contact you shortly.');
-      glassForm.reset();
-      detailedForm.reset();
+      const { error } = await client.from("glass_orders").insert([data]);
+      if (error) {
+        alert("❌ Error submitting details: " + error.message);
+        return;
+      }
+
+      showCashMessage("✅ Thank you! Your details have been submitted. We will contact you shortly.");
+      glassForm.reset(); detailedForm.reset();
       detailedForm.style.display='none';
       detailedForm.setAttribute('aria-hidden','true');
       openDetailedFormBtn.style.display='none';
       updateStep(3);
     });
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});
-    }
   </script>
 </body>
 </html>

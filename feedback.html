@@ -5,17 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Loop | Feedback</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    body {
-      background: #f9f9f9;
-      color: #222;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI", Arial, sans-serif; }
+    body { background:#f9f9f9; color:#222; }
 
     /* Navbar */
     .navbar {
@@ -43,9 +34,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
+      background-image: url("https://png.pngtree.com/png-clipart/20240306/original/pngtree-infinity-symbol-black-png-png-image_14520365.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .nav-links {
@@ -71,128 +63,38 @@
     }
 
     /* Feedback Section */
-    .feedback-container {
-      max-width: 1000px;
-      margin: 50px auto;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-      display: flex;
-      overflow: hidden;
-    }
+    .feedback-container { max-width:1000px; margin:50px auto; background:#fff; border-radius:10px; box-shadow:0px 4px 10px rgba(0,0,0,0.1); display:flex; overflow:hidden; }
+    .contact-info { background:#f3f3f3; padding:30px; width:35%; border-right:2px solid #ddd; }
+    .contact-info h3 { margin-bottom:15px; font-size:20px; }
+    .contact-info p { margin:10px 0; font-size:15px; }
+    .contact-info a { color:#1a1acd; text-decoration:none; font-weight:500; }
 
-    .contact-info {
-      background: #f3f3f3;
-      padding: 30px;
-      width: 35%;
-      border-right: 2px solid #ddd;
-    }
+    .feedback-form { padding:30px; width:65%; }
+    .feedback-form h2 { margin-bottom:10px; font-size:22px; font-weight:bold; }
+    .feedback-form p { margin-bottom:20px; color:#555; }
+    .feedback-form input, .feedback-form textarea { width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px; font-size:15px; }
+    .feedback-form button { padding:12px 25px; background:#1a1acd; color:white; border:none; border-radius:25px; font-size:16px; cursor:pointer; transition:0.3s; }
+    .feedback-form button:hover { background:#f01111; }
 
-    .contact-info h3 {
-      margin-bottom: 15px;
-      font-size: 20px;
-    }
+    .rating { display:flex; gap:8px; margin-bottom:20px; cursor:pointer; }
+    .rating span { font-size:28px; color:#bbb; transition:color 0.3s; }
+    .rating span.active { color:#1a1acd; }
 
-    .contact-info p {
-      margin: 10px 0;
-      font-size: 15px;
-    }
-
-    .contact-info a {
-      color: #1a1acd;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .feedback-form {
-      padding: 30px;
-      width: 65%;
-    }
-
-    .feedback-form h2 {
-      margin-bottom: 10px;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .feedback-form p {
-      margin-bottom: 20px;
-      color: #555;
-    }
-
-    .feedback-form input,
-    .feedback-form textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-    }
-
-    .feedback-form button {
-      padding: 12px 25px;
-      background: #1a1acd;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .feedback-form button:hover {
-      background: #f01111;
-    }
-
-    /* Experience Rating */
-    .rating {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-
-    .rating span {
-      font-size: 28px;
-      color: #bbb;
-      transition: color 0.3s;
-    }
-
-    .rating span.active {
-      color: #1a1acd;
-    }
+    /* Thank You Modal */
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000; }
+    .modal-content { background:#fff; padding:30px; border-radius:10px; text-align:center; max-width:400px; width:90%; box-shadow:0 8px 20px rgba(0,0,0,0.3); }
+    .modal-content h2 { color:#1a1acd; margin-bottom:15px; }
+    .modal-content button { margin-top:15px; padding:10px 20px; background:#1a1acd; color:#fff; border:none; border-radius:25px; cursor:pointer; }
+    .modal-content button:hover { background:#f01111; }
 
     /* Footer */
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #f3f3f3;
-      margin-top: 40px;
-      font-size: 14px;
-      color: #555;
-    }
+    footer { text-align:center; padding:15px; background:#f3f3f3; margin-top:40px; font-size:14px; color:#555; }
 
-    @media (max-width: 768px) {
-      .feedback-container {
-        flex-direction: column;
-      }
-      .contact-info, .feedback-form {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-      }
+    @media (max-width:768px) {
+      .feedback-container { flex-direction:column; }
+      .contact-info, .feedback-form { width:100%; border-right:none; border-bottom:1px solid #ddd; }
     }
   </style>
-  <script>
-    // Rating system
-    function setRating(index) {
-      let stars = document.querySelectorAll(".rating span");
-      stars.forEach((star, i) => {
-        star.classList.toggle("active", i <= index);
-      });
-    }
-  </script>
 </head>
 <body>
 
@@ -212,34 +114,41 @@
 
   <!-- Feedback Section -->
   <div class="feedback-container">
-    <!-- Contact Info -->
     <div class="contact-info">
       <h3>Contact Us</h3>
       <p><strong>Phone:</strong> <a href="tel:+911234567891">+91 1234567891</a></p>
       <p><strong>Email:</strong> <a href="mailto:TheGlassLoop@gmail.com">TheGlassLoop@gmail.com</a></p>
     </div>
 
-    <!-- Form -->
     <div class="feedback-form">
       <h2>Feedback Form</h2>
       <p>We value your thoughts! Help us improve.</p>
-      <form>
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
+      <form id="feedbackForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
 
         <label>Experience:</label>
-        <div class="rating">
-          <span onclick="setRating(0)">&#10084;</span>
-          <span onclick="setRating(1)">&#10084;</span>
-          <span onclick="setRating(2)">&#10084;</span>
-          <span onclick="setRating(3)">&#10084;</span>
-          <span onclick="setRating(4)">&#10084;</span>
+        <div class="rating" id="ratingStars">
+          <span data-value="1">&#10084;</span>
+          <span data-value="2">&#10084;</span>
+          <span data-value="3">&#10084;</span>
+          <span data-value="4">&#10084;</span>
+          <span data-value="5">&#10084;</span>
         </div>
 
-        <input type="text" placeholder="Subject" required>
-        <textarea placeholder="Your Feedback" required></textarea>
+        <input type="text" id="subject" placeholder="Subject" required>
+        <textarea id="message" placeholder="Your Feedback" required></textarea>
         <button type="submit">Submit</button>
       </form>
+    </div>
+  </div>
+
+  <!-- Thank You Modal -->
+  <div class="modal" id="thankYouModal">
+    <div class="modal-content">
+      <h2>Thank You!</h2>
+      <p>Your feedback has been submitted successfully.</p>
+      <button onclick="closeModal()">Close</button>
     </div>
   </div>
 
@@ -247,6 +156,58 @@
     <p>&copy; 2025 The Loop | All Rights Reserved</p>
   </footer>
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = "https://hkbhnfdrodigtzzggqkl.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrYmhuZmRyb2RpZ3R6emdncWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4OTk2NjEsImV4cCI6MjA3NDQ3NTY2MX0.ezDdOtFLWJCOaif7cjWselohZj1KbxzxvZnbegjmlTM";
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Rating system
+    let selectedRating = 0;
+    const stars = document.querySelectorAll("#ratingStars span");
+    stars.forEach(star => {
+      star.addEventListener("click", () => {
+        selectedRating = parseInt(star.getAttribute("data-value"));
+        stars.forEach(s => s.classList.toggle("active", parseInt(s.getAttribute("data-value")) <= selectedRating));
+      });
+    });
+
+    // Feedback form submission
+    const feedbackForm = document.getElementById("feedbackForm");
+    const modal = document.getElementById("thankYouModal");
+
+    feedbackForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        rating: selectedRating,
+        subject: document.getElementById("subject").value.trim(),
+        message: document.getElementById("message").value.trim()
+      };
+
+      if (!data.rating) {
+        alert("Please select your experience rating!");
+        return;
+      }
+
+      const { error } = await supabase.from("feedback").insert([data]);
+      if (error) {
+        alert("Error submitting feedback: " + error.message);
+        return;
+      }
+
+      modal.style.display = "flex";
+      feedbackForm.reset();
+      selectedRating = 0;
+      stars.forEach(s => s.classList.remove("active"));
+    });
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+  </script>
 </body>
 </html>
-<!DOCTYPE html>
