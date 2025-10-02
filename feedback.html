@@ -38,61 +38,24 @@ footer { text-align:center; padding:15px; background:#f3f3f3; margin-top:40px; f
   .feedback-form button { width: 100%; padding: 12px; font-size: 15px; }
 }
 .rating span { font-size: 32px; }
+
 /* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px; /* reduced padding */
+  padding: 8px 16px;
   background: #fff;
   border-bottom: 2px solid #5de116;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
-
-.logo-section {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-image: url("https://png.pngtree.com/png-clipart/20240306/original/pngtree-infinity-symbol-black-png-png-image_14520365.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.nav-links {
-  display: flex;
-  gap: 10px;
-  flex-wrap: nowrap; /* prevents wrapping */
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #1a1acd;
-  border: 1px solid #1a1acd;
-  padding: 5px 10px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.nav-links a:hover {
-  background: #f01111;
-  color: #fff;
-  border-color: #f01111;
-  transform: translateY(-2px);
-}
+.logo-section { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 18px; }
+.logo { width: 40px; height: 40px; border-radius: 50%; background-image: url("https://png.pngtree.com/png-clipart/20240306/original/pngtree-infinity-symbol-black-png-png-image_14520365.png"); background-size: cover; background-position: center; background-repeat: no-repeat; }
+.nav-links { display: flex; gap: 10px; flex-wrap: nowrap; }
+.nav-links a { text-decoration: none; color: #1a1acd; border: 1px solid #1a1acd; padding: 5px 10px; border-radius: 25px; font-size: 14px; font-weight: 500; transition: all 0.3s ease; white-space: nowrap; }
+.nav-links a:hover { background: #f01111; color: #fff; border-color: #f01111; transform: translateY(-2px); }
 
 /* Mobile */
 @media(max-width: 600px){
@@ -100,9 +63,6 @@ footer { text-align:center; padding:15px; background:#f3f3f3; margin-top:40px; f
   .nav-links { width: 100%; justify-content: space-around; flex-wrap: wrap; margin-top: 4px; }
   .nav-links a { padding: 6px; flex: 1 1 auto; text-align: center; }
 }
-
-
-
 @media (max-width:768px){ .feedback-container { flex-direction:column; } .contact-info, .feedback-form { width:100%; border-right:none; border-bottom:1px solid #ddd; } }
 </style>
 </head>
@@ -110,10 +70,7 @@ footer { text-align:center; padding:15px; background:#f3f3f3; margin-top:40px; f
 
 <!-- Navbar -->
 <div class="navbar">
-  <div class="logo-section">
-    <div class="logo"></div>
-    <span>The Loop</span>
-  </div>
+  <div class="logo-section"><div class="logo"></div> <span>The Loop</span></div>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -156,7 +113,7 @@ footer { text-align:center; padding:15px; background:#f3f3f3; margin-top:40px; f
   <div>
     <h3>✅ Thank You!</h3>
     <p>Your feedback has been submitted successfully.</p>
-    <button onclick="document.getElementById('successModal').style.display='none'" class="btn btn-primary">Close</button>
+    <button onclick="document.getElementById('successModal').style.display='none'">Close</button>
   </div>
 </div>
 
@@ -164,40 +121,52 @@ footer { text-align:center; padding:15px; background:#f3f3f3; margin-top:40px; f
   <p>&copy; 2025 The Loop | All Rights Reserved</p>
 </footer>
 
+<!-- Supabase Integration -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
-const SUPABASE_URL = "https://YOUR_PROJECT.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrYmhuZmRyb2RpZ3R6emdncWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4OTk2NjEsImV4cCI6MjA3NDQ3NTY2MX0.ezDdOtFLWJCOaif7cjWselohZj1KbxzxvZnbegjmlTM";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL = "https://hkbhnfdrodigtzzggqkl.supabase.co"; // 🔴 Replace with real URL
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrYmhuZmRyb2RpZ3R6emdncWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4OTk2NjEsImV4cCI6MjA3NDQ3NTY2MX0.ezDdOtFLWJCOaif7cjWselohZj1KbxzxvZnbegjmlTM"; // 🔴 Replace with real anon key
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Rating system
 let currentRating = 0;
 const stars = document.querySelectorAll("#ratingStars span");
 stars.forEach(star => {
-  star.addEventListener('click', ()=>{
+  star.addEventListener("click", () => {
     currentRating = parseInt(star.dataset.value);
-    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= currentRating));
+    stars.forEach(s => s.classList.toggle("active", parseInt(s.dataset.value) <= currentRating));
   });
 });
 
 // Submit feedback
-document.getElementById('feedbackForm').addEventListener('submit', async e => {
+document.getElementById("feedbackForm").addEventListener("submit", async e => {
   e.preventDefault();
   const data = {
-    name: document.getElementById('fbName').value.trim(),
-    email: document.getElementById('fbEmail').value.trim(),
+    name: document.getElementById("fbName").value.trim(),
+    email: document.getElementById("fbEmail").value.trim(),
     rating: currentRating,
-    subject: document.getElementById('fbSubject').value.trim(),
-    message: document.getElementById('fbMessage').value.trim()
+    subject: document.getElementById("fbSubject").value.trim(),
+    message: document.getElementById("fbMessage").value.trim(),
+    created_at: new Date().toISOString()
   };
-  
-  const { error } = await supabase.from('feedback').insert([data]);
-  if(error) alert("Error submitting feedback: "+error.message);
-  else {
-    document.getElementById('feedbackForm').reset();
-    currentRating = 0;
-    stars.forEach(s => s.classList.remove('active'));
-    document.getElementById('successModal').style.display='flex';
+
+  if (!data.name || !data.email || !data.message) {
+    alert("Please fill in your name, email and feedback message.");
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient.from("feedback").insert([data]);
+    if (error) {
+      alert("Error submitting feedback: " + error.message);
+    } else {
+      document.getElementById("feedbackForm").reset();
+      currentRating = 0;
+      stars.forEach(s => s.classList.remove("active"));
+      document.getElementById("successModal").style.display = "flex";
+    }
+  } catch (err) {
+    alert("Unexpected error: " + (err.message || err));
   }
 });
 </script>

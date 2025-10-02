@@ -187,5 +187,76 @@ footer{ margin-top:26px; text-align:center; color:#555; padding:12px 0 }
 </div>
 
 <footer>© <strong>The Loop</strong> — Glass Pickup & Recycling</footer>
+
+<!-- JavaScript -->
+<script>
+// Grab elements
+const glassForm = document.getElementById("glassForm");
+const detailedForm = document.getElementById("detailedForm");
+const cashMessage = document.getElementById("cashMessage");
+const inlineError = document.getElementById("inlineError");
+const openDetailedFormBtn = document.getElementById("openDetailedForm");
+const cancelDetailsBtn = document.getElementById("cancelDetails");
+const submitDetailsBtn = document.getElementById("submitDetails");
+
+// Cash rate
+const RATE = 10; // ₹10 per kg
+
+// Handle Quick Submission
+glassForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const weight = parseFloat(document.getElementById("weight").value);
+
+  if (isNaN(weight) || weight <= 0) {
+    inlineError.style.display = "block";
+    inlineError.innerText = "Please enter a valid weight (kg).";
+    return;
+  }
+
+  inlineError.style.display = "none";
+  const amount = weight * RATE;
+  cashMessage.style.display = "block";
+  cashMessage.innerHTML = `<strong>Estimated Cash: ₹${amount.toFixed(2)}</strong>`;
+
+  // Show button for detailed form
+  openDetailedFormBtn.style.display = "inline-block";
+});
+
+// Show Pickup Details form
+openDetailedFormBtn.addEventListener("click", () => {
+  detailedForm.style.display = "block";
+  openDetailedFormBtn.style.display = "none";
+});
+
+// Cancel Pickup Details
+cancelDetailsBtn.addEventListener("click", () => {
+  detailedForm.style.display = "none";
+  openDetailedFormBtn.style.display = "inline-block";
+});
+
+// Handle Final Submission
+submitDetailsBtn.addEventListener("click", () => {
+  const formData = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    address: document.getElementById("address").value,
+    weight: document.getElementById("weight").value,
+    glassItems: Array.from(document.querySelectorAll(".glassItem:checked")).map(i => i.value),
+    pickupDate: document.getElementById("pickupDate").value,
+    notes: document.getElementById("notes").value
+  };
+
+  console.log("Submitting to backend:", formData);
+  alert("✅ Details submitted! We will contact you soon.");
+
+  // Reset form
+  glassForm.reset();
+  detailedForm.reset();
+  cashMessage.style.display = "none";
+  detailedForm.style.display = "none";
+  openDetailedFormBtn.style.display = "none";
+});
+</script>
 </body>
 </html>
